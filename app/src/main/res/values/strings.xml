@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ScanBattles</string>
+    <string name="edit_message">Edit message</string>
+    <string name="button_scan">Scan</string>
+    <string name="button_monsters">Monsters</string>
+    <string name="button_items">Items</string>
+    <string name="button_team">Team</string>
+</resources>
