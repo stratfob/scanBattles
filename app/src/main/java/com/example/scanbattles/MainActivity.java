@@ -15,13 +15,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
     }
 
     public void scanMenuOption(View view) {
         Intent intent = new Intent(this, ScanActivity.class);
-//        EditText editText = findViewById(R.id.editText);
-//        String message = editText.getText().toString();
-//        intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
+    }
+
+    public void monstersMenuOption(View view) {
+        Intent intent = new Intent(this, MonstersActivity.class);
+        startActivity(intent);
+    }
+
+    public void itemsMenuOption(View view) {
+        //TODO
+    }
+
+    public void teamMenuOption(View view) {
+        //TODO
     }
 }
