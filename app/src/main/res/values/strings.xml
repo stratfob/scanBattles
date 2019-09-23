@@ -96,4 +96,8 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="HP">HP</string>
+    <string name="Attack">Attack</string>
+    <string name="Defense">Defense</string>
+    <string name="Speed">Speed</string>
 </resources>

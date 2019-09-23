@@ -8,20 +8,15 @@ import androidx.room.PrimaryKey;
 public class Monster {
     @PrimaryKey
     public int id;
+    public int image;
     public String name;
     public String tribe;
     public String classification;
-    public int startingHP;
-    public int levelOneDefense;
-    public int levelTwoDefense;
-    public int levelThreeDefense;
-    public int levelOneSpeed;
-    public int levelTwoSpeed;
-    public int levelThreeSpeed;
-    public int levelOneDamage;
-    public int levelTwoDamage;
-    public int levelThreeDamage;
-
-    //TODO - Image
+    public int maxHP;
+    public int currentHP;
+    public int level;
+    public int defense;
+    public int speed;
+    public int attack;
 
 }
