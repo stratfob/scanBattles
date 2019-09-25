@@ -6,6 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.scanbattles.db.AppDatabase;
+import com.example.scanbattles.models.Monster;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ScanResultActivity extends AppCompatActivity {
 
     @Override
@@ -16,9 +22,42 @@ public class ScanResultActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.SCAN_KEY);
 
-        // Capture the layout's TextView and set the string as its text
+        Scan scan = new Scan(message);
+        Monster monster = scan.scan();
+
+        String resultString = "";
+        //monster returned by scan
+        if(monster != null){
+            //check to see if owned
+            //TODO: add check to see if it belongs to user's tribe
+            ArrayList<Monster> newMonster = (ArrayList<Monster>) AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{monster.id});
+
+            //not owned
+            if(newMonster.size()==0){
+                //add monster to user monsters
+                monster.maxHP = 10; //TODO: make max HP different
+                monster.currentHP = monster.maxHP;
+                monster.level = 1;
+                AppDatabase.getAppDatabase(this).monsterDao().insertAll(monster);
+                resultString = "Added " + monster.name + " to your monsters!";
+            }
+            //owned
+            else{
+                //heal monster
+                newMonster.get(0).currentHP = newMonster.get(0).maxHP;
+                AppDatabase.getAppDatabase(this).monsterDao().update(newMonster.get(0));
+                resultString = "Healed " + newMonster.get(0).name + "!";
+            }
+        }
+
+        else {
+            resultString = "No monster found!";
+        }
+
         TextView textView = findViewById(R.id.textView);
-        textView.setText(message);
+        textView.setText(resultString);
 
     }
+
+
 }

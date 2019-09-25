@@ -47,8 +47,7 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
     @Override
     public MonsterAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.monster_item, parent, false);
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
+        return new MyViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -59,9 +58,24 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
         holder.monsterImage.setImageResource(currentMonster.image);
         holder.monsterName.setText(currentMonster.name);
         holder.monsterHP.setText(String.format(Locale.getDefault(),"%d", currentMonster.currentHP));
-        holder.monsterAttack.setText(String.format(Locale.getDefault(),"%d", currentMonster.attack));
-        holder.monsterDefense.setText(String.format(Locale.getDefault(),"%d", currentMonster.defense));
-        holder.monsterSpeed.setText(String.format(Locale.getDefault(),"%d", currentMonster.speed));
+        switch (currentMonster.level){
+            case 1:
+                holder.monsterAttack.setText(String.format(Locale.getDefault(),"%d", currentMonster.attackLvl1));
+                holder.monsterDefense.setText(String.format(Locale.getDefault(),"%d", currentMonster.defenseLvl1));
+                holder.monsterSpeed.setText(String.format(Locale.getDefault(),"%d", currentMonster.speedLvl1));
+                break;
+            case 2:
+                holder.monsterAttack.setText(String.format(Locale.getDefault(),"%d", currentMonster.attackLvl2));
+                holder.monsterDefense.setText(String.format(Locale.getDefault(),"%d", currentMonster.defenseLvl2));
+                holder.monsterSpeed.setText(String.format(Locale.getDefault(),"%d", currentMonster.speedLvl2));
+                break;
+            case 3:
+                holder.monsterAttack.setText(String.format(Locale.getDefault(),"%d", currentMonster.attackLvl3));
+                holder.monsterDefense.setText(String.format(Locale.getDefault(),"%d", currentMonster.defenseLvl3));
+                holder.monsterSpeed.setText(String.format(Locale.getDefault(),"%d", currentMonster.speedLvl3));
+                break;
+        }
+
 
     }
 

@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.scanbattles.models.Monster;
 
@@ -22,4 +23,7 @@ public interface MonsterDao {
 
     @Delete
     void delete(Monster monster);
+
+    @Update
+    void update(Monster... monsters);
 }
