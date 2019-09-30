@@ -100,4 +100,6 @@
     <string name="Attack">Attack</string>
     <string name="Defense">Defense</string>
     <string name="Speed">Speed</string>
+    <string name="Tribe">Tribe</string>
+    <string name="Level">Level</string>
 </resources>

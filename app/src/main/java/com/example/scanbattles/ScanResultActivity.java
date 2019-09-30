@@ -25,28 +25,38 @@ public class ScanResultActivity extends AppCompatActivity {
         Scan scan = new Scan(message);
         Monster monster = scan.scan();
 
-        String resultString = "";
+        String resultString;
         //monster returned by scan
-        if(monster != null){
-            //check to see if owned
-            //TODO: add check to see if it belongs to user's tribe
-            ArrayList<Monster> newMonster = (ArrayList<Monster>) AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{monster.id});
+        if(monster != null) {
 
-            //not owned
-            if(newMonster.size()==0){
-                //add monster to user monsters
-                monster.maxHP = 10; //TODO: make max HP different
-                monster.currentHP = monster.maxHP;
-                monster.level = 1;
-                AppDatabase.getAppDatabase(this).monsterDao().insertAll(monster);
-                resultString = "Added " + monster.name + " to your monsters!";
+            //Check if in User's tribe
+            if (!AppDatabase.getAppDatabase(this).userDao().getTribe().equals(monster.tribe)) {
+                //TODO: make this a battle check
+                resultString = "This monster's tribe is: " + monster.tribe + ", yours is: " + AppDatabase.getAppDatabase(this).userDao().getTribe();
             }
-            //owned
-            else{
-                //heal monster
-                newMonster.get(0).currentHP = newMonster.get(0).maxHP;
-                AppDatabase.getAppDatabase(this).monsterDao().update(newMonster.get(0));
-                resultString = "Healed " + newMonster.get(0).name + "!";
+            else {
+
+
+                ArrayList<Monster> newMonster = (ArrayList<Monster>) AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{monster.id});
+
+    //check to see if owned
+                //not owned
+                if (newMonster.size() == 0) {
+                    //add monster to user monsters
+                    monster.maxHP = 10; //TODO: make max HP different
+                    monster.currentHP = monster.maxHP;
+                    monster.level = 1;
+                    AppDatabase.getAppDatabase(this).monsterDao().insertAll(monster);
+                    resultString = "Added " + monster.name + " to your monsters!";
+                }
+                //owned
+                else {
+                    //heal monster
+                    newMonster.get(0).currentHP = newMonster.get(0).maxHP;
+                    AppDatabase.getAppDatabase(this).monsterDao().update(newMonster.get(0));
+                    resultString = "Healed " + newMonster.get(0).name + "!";
+                }
+
             }
         }
 

@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.scanbattles.db.AppDatabase;
+import com.example.scanbattles.models.User;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String SCAN_KEY = "com.example.scanbattles.SCAN";
@@ -15,6 +18,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //TODO: make this a choice
+        if(AppDatabase.getAppDatabase(this).userDao().getAll().size()==0){
+            User user = new User();
+            user.id = 1;
+            user.tribe = "Pataak";
+            AppDatabase.getAppDatabase(this).userDao().insertAll(user);
+        }
     }
 
     public void scanMenuOption(View view) {
