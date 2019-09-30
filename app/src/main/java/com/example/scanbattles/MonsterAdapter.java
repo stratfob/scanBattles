@@ -58,7 +58,8 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
         Monster currentMonster = monsterArrayList.get(position);
 
         //TODO: replace below with monster's image
-        holder.monsterImage.setImageResource(R.drawable.ic_android_black_24dp);
+
+        holder.monsterImage.setImageResource(new AllMonsters().getMonsterPictureId(currentMonster.id));
         holder.monsterName.setText(currentMonster.name);
         holder.monsterHP.setText(String.format(Locale.getDefault(),"%d / %d", currentMonster.currentHP, currentMonster.maxHP));
         holder.monsterLevel.setText(String.format(Locale.getDefault(),"Level: %d", currentMonster.level));
