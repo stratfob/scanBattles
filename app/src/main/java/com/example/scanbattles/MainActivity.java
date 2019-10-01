@@ -19,12 +19,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //TODO: make this a choice
         if(AppDatabase.getAppDatabase(this).userDao().getAll().size()==0){
-            User user = new User();
-            user.id = 1;
-            user.tribe = "Pataak";
-            AppDatabase.getAppDatabase(this).userDao().insertAll(user);
+            Intent intent = new Intent(this, TribeSelectionActivity.class);
+            startActivity(intent);
         }
     }
 

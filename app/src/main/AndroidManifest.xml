@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MonstersActivity"></activity>
+        <activity android:name=".TribeSelectionActivity"></activity>
+        <activity android:name=".MonstersActivity" />
         <activity android:name=".ScanResultActivity" />
         <activity android:name=".ScanActivity" />
         <activity android:name=".MainActivity">

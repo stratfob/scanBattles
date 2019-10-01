@@ -157,6 +157,9 @@ public class AllMonsters {
             monster.attackLvl2 = Integer.parseInt(monsterString[11]);
             monster.attackLvl3 = Integer.parseInt(monsterString[12]);
 
+            //Max HP calc
+            monster.maxHP = (monster.attackLvl3 + monster.defenseLvl3) / 2;
+
             allMonsters.add(monster);
 
         }

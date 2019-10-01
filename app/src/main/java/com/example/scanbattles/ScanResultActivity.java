@@ -43,7 +43,6 @@ public class ScanResultActivity extends AppCompatActivity {
                 //not owned
                 if (newMonster.size() == 0) {
                     //add monster to user monsters
-                    monster.maxHP = 10; //TODO: make max HP different
                     monster.currentHP = monster.maxHP;
                     monster.level = 1;
                     AppDatabase.getAppDatabase(this).monsterDao().insertAll(monster);
