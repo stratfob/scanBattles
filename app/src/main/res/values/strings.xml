@@ -105,4 +105,8 @@
     <string name="Ujalu">Ujalu</string>
     <string name="Pataak">Pataak</string>
     <string name="Zendra">Zendra</string>
+    <string name="Rarity">Rarity</string>
+    <string name="Common">Common</string>
+    <string name="Uncommon">Uncommon</string>
+    <string name="Rare">Rare</string>
 </resources>

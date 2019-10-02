@@ -134,7 +134,7 @@ public class AllMonsters {
         {"125","Sandstone","Ujalu","Power","5","2","5","2","6","2","2","4","6"},
         {"126","Nautilus","Ujalu","Power","6","1","7","2","8","2","3","6","9"}
     };
-    ArrayList<Monster> allMonsters;
+    private ArrayList<Monster> allMonsters;
 
     public AllMonsters(){
         allMonsters = new ArrayList<>();
@@ -157,8 +157,19 @@ public class AllMonsters {
             monster.attackLvl2 = Integer.parseInt(monsterString[11]);
             monster.attackLvl3 = Integer.parseInt(monsterString[12]);
 
+            double averageLevelThreeStats = (monster.defenseLvl3+monster.attackLvl3)/2.0;
+            if(averageLevelThreeStats<=6.0){
+                monster.rarity = 3; // Most Common
+            }
+            else if(averageLevelThreeStats<=7.0){
+                monster.rarity = 2;
+            }
+            else {
+                monster.rarity = 1;
+            }
+
             //Max HP calc
-            monster.maxHP = (monster.attackLvl3 + monster.defenseLvl3) / 2;
+            monster.maxHP = (int) averageLevelThreeStats;
 
             allMonsters.add(monster);
 
@@ -167,11 +178,23 @@ public class AllMonsters {
     }
 
     public Monster getMonsterWithHash(int hash){
-        int index = Math.abs(hash)%(monsterStrings.length*2);
-        if(index >= allMonsters.size()){
+
+        ArrayList<Monster> monsterHashArray = new ArrayList<>();
+
+        for (int i = 0; i<allMonsters.size(); i++){
+            Monster curMonster = allMonsters.get(i);
+
+            for (int j = 0; j<curMonster.rarity; j++){
+                monsterHashArray.add(curMonster);
+            }
+        }
+
+
+        int index = Math.abs(hash)%(monsterHashArray.size()*2); // get monster half the time
+        if(index >= monsterHashArray.size()){
             return null;
         }
-        else return allMonsters.get(index);
+        else return monsterHashArray.get(index);
 
     }
 

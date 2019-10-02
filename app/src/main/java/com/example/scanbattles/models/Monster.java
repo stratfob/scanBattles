@@ -24,5 +24,6 @@ public class Monster {
     public int defenseLvl3;
     public int speedLvl3;
     public int attackLvl3;
+    public int rarity;
 
 }

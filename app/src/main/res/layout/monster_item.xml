@@ -92,6 +92,18 @@
             android:layout_toEndOf="@+id/monsterName"
             android:layout_toRightOf="@+id/monsterName"
             android:text="@string/Level" />
+
+        <TextView
+            android:id="@+id/monsterRarity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/monsterName"
+            android:layout_marginStart="58dp"
+            android:layout_marginLeft="58dp"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@+id/monsterHP"
+            android:layout_toRightOf="@+id/monsterHP"
+            android:text="@string/Rarity" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
