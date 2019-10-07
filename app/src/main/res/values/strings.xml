@@ -4,7 +4,7 @@
     <string name="button_scan">Scan</string>
     <string name="button_monsters">Monsters</string>
     <string name="button_items">Items</string>
-    <string name="button_team">Team</string>
+    <string name="button_team">Teams</string>
     <string name="title_activity_monsters">MonstersActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"

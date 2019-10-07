@@ -17,9 +17,6 @@ public interface UserDao {
     @Query("SELECT tribe from user")
     String getTribe();
 
-    @Query("SELECT team1 from User union SELECT team2 from User union SELECT team3 from User")
-    List<Integer> getTeamMembers();
-
     @Query("SELECT * FROM user")
     List<User> getAll();
 

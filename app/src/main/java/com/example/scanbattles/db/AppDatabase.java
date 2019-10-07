@@ -7,14 +7,16 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.scanbattles.models.Monster;
+import com.example.scanbattles.models.Team;
 import com.example.scanbattles.models.User;
 
-@Database(entities = {Monster.class, User.class}, version = 1, exportSchema = false)
+@Database(entities = {Monster.class, User.class, Team.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
     public abstract MonsterDao monsterDao();
     public abstract UserDao userDao();
+    public abstract TeamDao teamDao();
 
     public static AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {

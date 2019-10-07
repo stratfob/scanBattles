@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void teamMenuOption(View view) {
-        //TODO
+        Intent intent = new Intent(this, TeamsActivity.class);
+        startActivity(intent);
     }
 }
