@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.scanbattles.db.AppDatabase;
@@ -35,8 +36,6 @@ public class ScanResultActivity extends AppCompatActivity {
                 resultString = "This monster's tribe is: " + monster.tribe + ", yours is: " + AppDatabase.getAppDatabase(this).userDao().getTribe();
             }
             else {
-
-
                 ArrayList<Monster> newMonster = (ArrayList<Monster>) AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{monster.id});
 
     //check to see if owned
@@ -68,5 +67,14 @@ public class ScanResultActivity extends AppCompatActivity {
 
     }
 
+    public void MenuOption(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void ScanAgainOption(View view) {
+        Intent intent = new Intent(this, ScanActivity.class);
+        startActivity(intent);
+    }
 
 }

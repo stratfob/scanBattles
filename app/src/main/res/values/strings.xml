@@ -109,4 +109,6 @@
     <string name="Common">Common</string>
     <string name="Uncommon">Uncommon</string>
     <string name="Rare">Rare</string>
+    <string name="Back">Back</string>
+    <string name="Scan_Again">Scan Again</string>
 </resources>
