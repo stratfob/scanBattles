@@ -30,6 +30,7 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
         public TextView monsterSpeed;
         public TextView monsterLevel;
         public TextView monsterRarity;
+        public TextView monsterTeam;
 
         public MyViewHolder(View v) {
             super(v);
@@ -41,6 +42,7 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
             monsterSpeed = v.findViewById(R.id.monsterSpeed);
             monsterLevel = v.findViewById(R.id.monsterLevel);
             monsterRarity = v.findViewById(R.id.monsterRarity);
+            monsterTeam = v.findViewById(R.id.monsterTeam);
         }
     }
 
@@ -64,6 +66,7 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
         holder.monsterName.setText(currentMonster.name);
         holder.monsterHP.setText(String.format(Locale.getDefault(),"%d / %d HP", currentMonster.currentHP, currentMonster.maxHP));
         holder.monsterLevel.setText(String.format(Locale.getDefault(),"Level: %d", currentMonster.level));
+
         switch (currentMonster.level){
             case 1:
                 holder.monsterAttack.setText(String.format(Locale.getDefault(),"Attack: %d", currentMonster.attackLvl1));
@@ -91,6 +94,12 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
             case 3:
                 holder.monsterRarity.setText(R.string.Common);
                 break;
+        }
+
+        if(currentMonster.team != 0) {
+            holder.monsterTeam.setText(String.format(Locale.getDefault(), "Team: %d", currentMonster.team));
+        } else{
+            holder.monsterTeam.setText("");
         }
 
 

@@ -104,6 +104,22 @@
             android:layout_toEndOf="@+id/monsterHP"
             android:layout_toRightOf="@+id/monsterHP"
             android:text="@string/Rarity" />
+
+        <TextView
+            android:id="@+id/monsterTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_toEndOf="@+id/monsterLevel"
+            android:layout_toRightOf="@+id/monsterLevel"
+            android:text="@string/Team" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

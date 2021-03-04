@@ -48,5 +48,9 @@ public class MonstersActivity extends AppCompatActivity {
         return true;
     }
 
+    public void setTeam(int team){
+
+    }
+
 }
 

@@ -170,6 +170,7 @@ public class AllMonsters {
 
             //Max HP calc
             monster.maxHP = (int) averageLevelThreeStats;
+            monster.team = 0;
 
             allMonsters.add(monster);
 
@@ -189,8 +190,9 @@ public class AllMonsters {
             }
         }
 
+        double monsterRate = 1;   // this specifies how often scans will result in a monster
 
-        int index = Math.abs(hash)%(monsterHashArray.size()*2); // get monster half the time
+        int index = Math.abs(hash)%(int)(monsterHashArray.size()*(1.0/monsterRate));
         if(index >= monsterHashArray.size()){
             return null;
         }
