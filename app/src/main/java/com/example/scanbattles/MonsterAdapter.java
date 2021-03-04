@@ -19,8 +19,9 @@ import java.util.Locale;
 public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHolder> {
 
     private ArrayList<Monster> monsterArrayList;
+    private monsterClickListener myMonsterClickListener;
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public ImageView monsterImage;
         public TextView monsterName;
@@ -31,8 +32,9 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
         public TextView monsterLevel;
         public TextView monsterRarity;
         public TextView monsterTeam;
+        monsterClickListener myMonsterClickListener;
 
-        public MyViewHolder(View v) {
+        public MyViewHolder(View v, monsterClickListener myMonsterClickListener) {
             super(v);
             monsterImage = v.findViewById(R.id.monsterImage);
             monsterName = v.findViewById(R.id.monsterName);
@@ -43,18 +45,26 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
             monsterLevel = v.findViewById(R.id.monsterLevel);
             monsterRarity = v.findViewById(R.id.monsterRarity);
             monsterTeam = v.findViewById(R.id.monsterTeam);
+            this.myMonsterClickListener = myMonsterClickListener;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            myMonsterClickListener.onMonsterClick(getAdapterPosition());
         }
     }
 
-    public MonsterAdapter(ArrayList<Monster> monsterArrayList){
+    public MonsterAdapter(ArrayList<Monster> monsterArrayList, monsterClickListener myMonsterClickListener){
         this.monsterArrayList = monsterArrayList;
+        this.myMonsterClickListener = myMonsterClickListener;
     }
 
     // Create new views (invoked by the layout manager)
     @Override @NonNull
     public MonsterAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.monster_item, parent, false);
-        return new MyViewHolder(v);
+        return new MyViewHolder(v, myMonsterClickListener);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -101,8 +111,6 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
         } else{
             holder.monsterTeam.setText("");
         }
-
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -110,4 +118,9 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
     public int getItemCount() {
         return monsterArrayList.size();
     }
+
+    public interface monsterClickListener{
+        void onMonsterClick(int position);
+    }
+
 }

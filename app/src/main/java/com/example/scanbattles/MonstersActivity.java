@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.scanbattles.db.AppDatabase;
 import com.example.scanbattles.models.Monster;
@@ -18,10 +19,11 @@ import com.example.scanbattles.models.Monster;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonstersActivity extends AppCompatActivity {
+public class MonstersActivity extends AppCompatActivity implements MonsterAdapter.monsterClickListener{
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    ArrayList<Monster> myMonsters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +37,9 @@ public class MonstersActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        ArrayList<Monster> myMonsters = (ArrayList<Monster>) AppDatabase.getAppDatabase(this).monsterDao().getAll();
+        myMonsters = (ArrayList<Monster>) AppDatabase.getAppDatabase(this).monsterDao().getAll();
 
-        mAdapter = new MonsterAdapter(myMonsters);
+        mAdapter = new MonsterAdapter(myMonsters, this);
         recyclerView.setAdapter(mAdapter);
 
     }
@@ -52,5 +54,10 @@ public class MonstersActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onMonsterClick(int position) {
+        Toast toast = Toast.makeText(getApplicationContext(), myMonsters.get(position).name, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 }
 
