@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.scanbattles.db.AppDatabase;
 import com.example.scanbattles.models.Monster;
+import com.example.scanbattles.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +55,21 @@ public class MonstersActivity extends AppCompatActivity implements MonsterAdapte
     }
 
     public void setTeam(int monsterPosition, int team){
+
         Monster monster = myMonsters.get(monsterPosition);
-        monster.team = team;
-        AppDatabase.getAppDatabase(this).monsterDao().update(monster);
+        int monsterId = monster.id;
+        User user = AppDatabase.getAppDatabase(this).userDao().getAll().get(0);
+        if (user.addMonster(monsterId, team)){
+            user.removeMonster(monsterId);  // to remove from other team
+            user.addMonster(monsterId, team); // to add back into new team
+            AppDatabase.getAppDatabase(this).userDao().update(user);
+            monster.team = team;
+            AppDatabase.getAppDatabase(this).monsterDao().update(monster);
+
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"Team " + team + " is already full!", Toast.LENGTH_SHORT).show();
+        }
         mAdapter.notifyDataSetChanged();
     }
 
