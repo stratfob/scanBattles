@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class AllMonsters {
 
-    private String[][] monsterStrings = {
+    private static final String[][] monsterStrings = {
         {"1","Falco","Zendra","Magic","5","3","6","3","7","3","2","4","7"},
         {"2","Gargoyle","Zendra","Magic","4","3","7","2","10","1","1","3","5"},
         {"3","Octeye","Zendra","Magic","8","2","8","2","8","2","3","5","7"},
@@ -134,10 +134,9 @@ public class AllMonsters {
         {"125","Sandstone","Ujalu","Power","5","2","5","2","6","2","2","4","6"},
         {"126","Nautilus","Ujalu","Power","6","1","7","2","8","2","3","6","9"}
     };
-    private ArrayList<Monster> allMonsters;
 
-    public AllMonsters(){
-        allMonsters = new ArrayList<>();
+    public static ArrayList<Monster> getAllMonsters(){
+        ArrayList<Monster> allMonsters = new ArrayList<>();
 
         for (String[] monsterString : monsterStrings) {
 
@@ -175,12 +174,11 @@ public class AllMonsters {
             allMonsters.add(monster);
 
         }
-
+        return allMonsters;
     }
 
-    public Monster getMonsterWithHash(int hash){
+    public static ArrayList<Monster> createMonsterHashArray(ArrayList<Monster> allMonsters){
         ArrayList<Monster> monsterHashArray = new ArrayList<>();
-
         for (int i = 0; i<allMonsters.size(); i++){
             Monster curMonster = allMonsters.get(i);
 
@@ -189,17 +187,19 @@ public class AllMonsters {
             }
         }
 
-        double monsterRate = 1;   // this specifies how often scans will result in a monster
+       return monsterHashArray;
 
+    }
+
+    public static Monster getMonsterWithHash(int hash, ArrayList<Monster> monsterHashArray, double monsterRate){
         int index = Math.abs(hash)%(int)(monsterHashArray.size()*(1.0/monsterRate));
         if(index >= monsterHashArray.size()){
             return null;
         }
         else return monsterHashArray.get(index);
-
     }
 
-    public int getMonsterPictureId(int monsterId){
+    public static int getMonsterPictureId(int monsterId){
         int[] pictureIds = new int[] {
             R.drawable.image_part_001,
             R.drawable.image_part_010,

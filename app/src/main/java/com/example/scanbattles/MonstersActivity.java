@@ -3,16 +3,11 @@ package com.example.scanbattles;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.scanbattles.db.AppDatabase;
@@ -20,12 +15,9 @@ import com.example.scanbattles.models.Monster;
 import com.example.scanbattles.models.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MonstersActivity extends AppCompatActivity implements MonsterAdapter.monsterClickListener{
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.Adapter<MonsterAdapter.MyViewHolder> mAdapter;
     ArrayList<Monster> myMonsters;
     int selectedTeam = 0;
 
@@ -35,9 +27,9 @@ public class MonstersActivity extends AppCompatActivity implements MonsterAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monsters);
 
-        recyclerView = findViewById(R.id.monsterRecycler);
+        RecyclerView recyclerView = findViewById(R.id.monsterRecycler);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
 

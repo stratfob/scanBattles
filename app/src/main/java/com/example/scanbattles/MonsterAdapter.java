@@ -70,7 +70,7 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Monster currentMonster = monsterArrayList.get(position);
 
-        holder.monsterImage.setImageResource(new AllMonsters().getMonsterPictureId(currentMonster.id));
+        holder.monsterImage.setImageResource(AllMonsters.getMonsterPictureId(currentMonster.id));
         String name = currentMonster.name + " (lvl " + currentMonster.level + ")";
         holder.monsterName.setText(name);
         holder.monsterHP.setText(String.format(Locale.getDefault(),"%d / %d HP", currentMonster.currentHP, currentMonster.maxHP));

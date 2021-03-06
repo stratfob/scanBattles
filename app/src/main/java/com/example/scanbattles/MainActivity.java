@@ -8,11 +8,17 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.scanbattles.db.AppDatabase;
+import com.example.scanbattles.models.Monster;
 import com.example.scanbattles.models.User;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String SCAN_KEY = "com.example.scanbattles.SCAN";
+    public static final ArrayList<Monster> allMonsters = AllMonsters.getAllMonsters();
+    public static final ArrayList<Monster> monsterHashArray = AllMonsters.createMonsterHashArray(allMonsters);
+    public static final double monsterRate = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -4,8 +4,8 @@ import com.example.scanbattles.models.Monster;
 
 public class Scan {
 
-    private String scanString;
-    private int hash;
+    private final String scanString;
+    private final int hash;
 
     public Scan(String input){
         scanString = input;
@@ -17,6 +17,6 @@ public class Scan {
     }
 
     public Monster scan(){
-        return new AllMonsters().getMonsterWithHash(hash);
+        return AllMonsters.getMonsterWithHash(hash, MainActivity.monsterHashArray, MainActivity.monsterRate);
     }
 }

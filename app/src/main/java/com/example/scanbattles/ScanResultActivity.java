@@ -11,7 +11,6 @@ import com.example.scanbattles.db.AppDatabase;
 import com.example.scanbattles.models.Monster;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ScanResultActivity extends AppCompatActivity {
 
