@@ -200,6 +200,10 @@ public class AllMonsters {
         else return monsterHashArray.get(index);
     }
 
+    public static Monster getMonsterById(int id, ArrayList<Monster> monsters){
+        return monsters.get(id-1);
+    }
+
     public static int getMonsterPictureId(int monsterId){
         int[] pictureIds = new int[] {
             R.drawable.image_part_001,

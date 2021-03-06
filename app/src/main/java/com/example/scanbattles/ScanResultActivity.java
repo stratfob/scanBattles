@@ -2,6 +2,8 @@ package com.example.scanbattles;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +33,7 @@ public class ScanResultActivity extends AppCompatActivity {
 
             //Check if in User's tribe
             if (!AppDatabase.getAppDatabase(this).userDao().getTribe().equals(monster.tribe)) {
-                //TODO: make this a battle check
+                fightDialogue(monster);
                 resultString = "This monster's tribe is: " + monster.tribe + ", yours is: " + AppDatabase.getAppDatabase(this).userDao().getTribe();
             }
             else {
@@ -63,6 +65,27 @@ public class ScanResultActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView);
         textView.setText(resultString);
 
+    }
+
+    private void fightDialogue(final Monster monster) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ScanResultActivity.this);
+        builder.setTitle("Fight " + monster.tribe + " monster?");
+        builder.setPositiveButton("Let's go!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(ScanResultActivity.this, FightActivity.class);
+                intent.putExtra("monsterID", monster.id);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
     public void MenuOption(View view) {
