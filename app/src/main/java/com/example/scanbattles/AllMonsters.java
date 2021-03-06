@@ -179,7 +179,6 @@ public class AllMonsters {
     }
 
     public Monster getMonsterWithHash(int hash){
-
         ArrayList<Monster> monsterHashArray = new ArrayList<>();
 
         for (int i = 0; i<allMonsters.size(); i++){

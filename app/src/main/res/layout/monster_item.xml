@@ -82,18 +82,6 @@
             android:text="@string/Speed" />
 
         <TextView
-            android:id="@+id/monsterLevel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="19dp"
-            android:layout_toEndOf="@+id/monsterName"
-            android:layout_toRightOf="@+id/monsterName"
-            android:text="@string/Level" />
-
-        <TextView
             android:id="@+id/monsterRarity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -105,21 +93,18 @@
             android:layout_toRightOf="@+id/monsterHP"
             android:text="@string/Rarity" />
 
-        <TextView
-            android:id="@+id/monsterTeam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/teamImage"
+            android:layout_width="67dp"
+            android:layout_height="57dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="27dp"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginRight="18dp"
-            android:layout_toEndOf="@+id/monsterLevel"
-            android:layout_toRightOf="@+id/monsterLevel"
-            android:text="@string/Team" />
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:contentDescription="@string/Team" />
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

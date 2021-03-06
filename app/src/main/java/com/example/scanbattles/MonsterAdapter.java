@@ -18,8 +18,8 @@ import java.util.Locale;
 
 public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHolder> {
 
-    private ArrayList<Monster> monsterArrayList;
-    private monsterClickListener myMonsterClickListener;
+    private final ArrayList<Monster> monsterArrayList;
+    private final monsterClickListener myMonsterClickListener;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -29,9 +29,8 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
         public TextView monsterAttack;
         public TextView monsterDefense;
         public TextView monsterSpeed;
-        public TextView monsterLevel;
         public TextView monsterRarity;
-        public TextView monsterTeam;
+        public ImageView teamImage;
         monsterClickListener myMonsterClickListener;
 
         public MyViewHolder(View v, monsterClickListener myMonsterClickListener) {
@@ -42,9 +41,8 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
             monsterAttack = v.findViewById(R.id.monsterAttack);
             monsterDefense = v.findViewById(R.id.monsterDefense);
             monsterSpeed = v.findViewById(R.id.monsterSpeed);
-            monsterLevel = v.findViewById(R.id.monsterLevel);
             monsterRarity = v.findViewById(R.id.monsterRarity);
-            monsterTeam = v.findViewById(R.id.monsterTeam);
+            teamImage = v.findViewById(R.id.teamImage);
             this.myMonsterClickListener = myMonsterClickListener;
             itemView.setOnClickListener(this);
         }
@@ -73,9 +71,9 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
         Monster currentMonster = monsterArrayList.get(position);
 
         holder.monsterImage.setImageResource(new AllMonsters().getMonsterPictureId(currentMonster.id));
-        holder.monsterName.setText(currentMonster.name);
+        String name = currentMonster.name + " (lvl " + currentMonster.level + ")";
+        holder.monsterName.setText(name);
         holder.monsterHP.setText(String.format(Locale.getDefault(),"%d / %d HP", currentMonster.currentHP, currentMonster.maxHP));
-        holder.monsterLevel.setText(String.format(Locale.getDefault(),"Level: %d", currentMonster.level));
 
         switch (currentMonster.level){
             case 1:
@@ -106,11 +104,24 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
                 break;
         }
 
-        if(currentMonster.team != 0) {
-            holder.monsterTeam.setText(String.format(Locale.getDefault(), "Team: %d", currentMonster.team));
-        } else{
-            holder.monsterTeam.setText("");
+        switch (currentMonster.team){
+            case 0:
+                holder.teamImage.setVisibility(View.INVISIBLE);
+                break;
+            case 1:
+                holder.teamImage.setVisibility(View.VISIBLE);
+                holder.teamImage.setImageResource(R.drawable.team1);
+                break;
+            case 2:
+                holder.teamImage.setVisibility(View.VISIBLE);
+                holder.teamImage.setImageResource(R.drawable.team2);
+                break;
+            case 3:
+                holder.teamImage.setVisibility(View.VISIBLE);
+                holder.teamImage.setImageResource(R.drawable.team3);
+                break;
         }
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
