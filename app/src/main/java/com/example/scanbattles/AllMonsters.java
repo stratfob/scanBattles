@@ -167,9 +167,10 @@ public class AllMonsters {
                 monster.rarity = 1;
             }
 
-            //Max HP calc
-            monster.maxHP = (int) averageLevelThreeStats;
+
+            monster.maxHP = (int) averageLevelThreeStats; //Max HP calc
             monster.team = 0;
+            monster.level = 1;
 
             allMonsters.add(monster);
 

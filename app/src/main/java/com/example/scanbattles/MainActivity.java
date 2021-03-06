@@ -26,9 +26,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if(AppDatabase.getAppDatabase(this).userDao().getAll().size()==0){
+            //Debug - add all monsters
+//            for (int i = 0; i < allMonsters.size(); i++){
+//                AppDatabase.getAppDatabase(this).monsterDao().insertAll(allMonsters.get(i));
+//            }
+
             Intent intent = new Intent(this, TribeSelectionActivity.class);
             startActivity(intent);
         }
+
+
     }
 
     public void scanMenuOption(View view) {
@@ -38,15 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void monstersMenuOption(View view) {
         Intent intent = new Intent(this, MonstersActivity.class);
-        startActivity(intent);
-    }
-
-    public void itemsMenuOption(View view) {
-        //TODO
-    }
-
-    public void teamMenuOption(View view) {
-        Intent intent = new Intent(this, TeamsActivity.class);
         startActivity(intent);
     }
 }
