@@ -3,8 +3,6 @@
     <string name="edit_message">Edit message</string>
     <string name="button_scan">Scan</string>
     <string name="button_monsters">Monsters</string>
-    <string name="button_items">Items</string>
-    <string name="button_team">Teams</string>
     <string name="title_activity_monsters">MonstersActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -112,4 +110,11 @@
     <string name="Rare">Rare</string>
     <string name="Back">Back</string>
     <string name="Scan_Again">Scan Again</string>
+    <string name="team1">Team 1</string>
+    <string name="team2">Team 2</string>
+    <string name="team3">Team 3</string>
+    <string name="exit_fight">Exit Fight</string>
+    <string name="todo">TODO</string>
+    <string name="textview">TextView</string>
+    <string name="switch_">Switch</string>
 </resources>

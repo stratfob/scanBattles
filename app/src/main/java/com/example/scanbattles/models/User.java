@@ -68,4 +68,17 @@ public class User {
         return true;
     }
 
+    public boolean emptyTeam(int team){
+        switch(team){
+            case 1:
+                return (team1Monster1 == 0 && team1Monster2 == 0 && team1Monster3 == 0);
+            case 2:
+                return (team2Monster1 == 0 && team2Monster2 == 0 && team2Monster3 == 0);
+            case 3:
+                return (team3Monster1 == 0 && team3Monster2 == 0 && team3Monster3 == 0);
+            default:
+                return true;
+        }
+    }
+
 }
