@@ -134,6 +134,7 @@
                         android:layout_gravity="bottom|end"
                         android:layout_marginEnd="24dp"
                         android:layout_marginRight="24dp"
+                        android:onClick="switchMonsterView"
                         android:text="@string/switch_"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
@@ -165,6 +166,294 @@
 
             </androidx.cardview.widget.CardView>
         </FrameLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/monster1Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="switchMonster"
+                android:tag="0"
+                app:cardBackgroundColor="#BE2196F3"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/monster2Card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/monster1Image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/button_monsters"
+                        android:padding="4dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <TextView
+                        android:id="@+id/monster1Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_toEndOf="@+id/monster1Image"
+                        android:layout_toRightOf="@+id/monster1Image"
+                        android:text="@string/button_monsters"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <TextView
+                        android:id="@+id/monster1HP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/monster1Name"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_toEndOf="@+id/monster1Image"
+                        android:layout_toRightOf="@+id/monster1Image"
+                        android:text="@string/HP" />
+
+                    <TextView
+                        android:id="@+id/monster1Attack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/monster1HP"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_toEndOf="@+id/monster1Image"
+                        android:layout_toRightOf="@+id/monster1Image"
+                        android:text="@string/Attack" />
+
+                    <TextView
+                        android:id="@+id/monster1Defense"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/monster1Attack"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginLeft="28dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_toEndOf="@+id/monster1Attack"
+                        android:layout_toRightOf="@+id/monster1Attack"
+                        android:text="@string/Defense" />
+
+                    <TextView
+                        android:id="@+id/monster1Speed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/monster1Defense"
+                        android:layout_marginStart="27dp"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_toEndOf="@+id/monster1Defense"
+                        android:layout_toRightOf="@+id/monster1Defense"
+                        android:text="@string/Speed" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/monster2Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="switchMonster"
+                android:tag="1"
+                app:cardBackgroundColor="#BE2196F3"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/monster3Card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/monster1Card">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/monster2Image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/button_monsters"
+                        android:padding="4dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <TextView
+                        android:id="@+id/monster2Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_toEndOf="@+id/monster2Image"
+                        android:layout_toRightOf="@+id/monster2Image"
+                        android:text="@string/button_monsters"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <TextView
+                        android:id="@+id/monster2HP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/monster2Name"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_toEndOf="@+id/monster2Image"
+                        android:layout_toRightOf="@+id/monster2Image"
+                        android:text="@string/HP" />
+
+                    <TextView
+                        android:id="@+id/monster2Attack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/monster2HP"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_toEndOf="@+id/monster2Image"
+                        android:layout_toRightOf="@+id/monster2Image"
+                        android:text="@string/Attack" />
+
+                    <TextView
+                        android:id="@+id/monster2Defense"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/monster2Attack"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginLeft="28dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_toEndOf="@+id/monster2Attack"
+                        android:layout_toRightOf="@+id/monster2Attack"
+                        android:text="@string/Defense" />
+
+                    <TextView
+                        android:id="@+id/monster2Speed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/monster2Defense"
+                        android:layout_marginStart="27dp"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_toEndOf="@+id/monster2Defense"
+                        android:layout_toRightOf="@+id/monster2Defense"
+                        android:text="@string/Speed" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/monster3Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:onClick="switchMonster"
+                android:tag="2"
+                app:cardBackgroundColor="#BE2196F3"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/monster2Card">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/monster3Image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/button_monsters"
+                        android:padding="4dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <TextView
+                        android:id="@+id/monster3Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_toEndOf="@+id/monster3Image"
+                        android:layout_toRightOf="@+id/monster3Image"
+                        android:text="@string/button_monsters"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <TextView
+                        android:id="@+id/monster3HP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/monster3Name"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_toEndOf="@+id/monster3Image"
+                        android:layout_toRightOf="@+id/monster3Image"
+                        android:text="@string/HP" />
+
+                    <TextView
+                        android:id="@+id/monster3Attack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/monster3HP"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_toEndOf="@+id/monster3Image"
+                        android:layout_toRightOf="@+id/monster3Image"
+                        android:text="@string/Attack" />
+
+                    <TextView
+                        android:id="@+id/monster3Defense"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/monster3Attack"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginLeft="28dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_toEndOf="@+id/monster3Attack"
+                        android:layout_toRightOf="@+id/monster3Attack"
+                        android:text="@string/Defense" />
+
+                    <TextView
+                        android:id="@+id/monster3Speed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/monster3Defense"
+                        android:layout_marginStart="27dp"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_toEndOf="@+id/monster3Defense"
+                        android:layout_toRightOf="@+id/monster3Defense"
+                        android:text="@string/Speed" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/cancelSwitchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:onClick="cancelSwitch"
+                android:text="@string/Back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ViewFlipper>
 

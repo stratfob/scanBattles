@@ -27,4 +27,37 @@ public class Monster {
     public int rarity;
     public int team;
 
+    public int getAttack(){
+        switch (level){
+            case 1:
+                return attackLvl1;
+            case 2:
+                return attackLvl2;
+            default:
+                return attackLvl3;
+        }
+    }
+
+    public int getDefense(){
+        switch (level){
+            case 1:
+                return defenseLvl1;
+            case 2:
+                return defenseLvl2;
+            default:
+                return defenseLvl3;
+        }
+    }
+
+    public int getSpeed(){
+        switch (level){
+            case 1:
+                return speedLvl1;
+            case 2:
+                return speedLvl2;
+            default:
+                return speedLvl3;
+        }
+    }
+
 }
