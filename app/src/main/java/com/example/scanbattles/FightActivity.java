@@ -3,6 +3,8 @@ package com.example.scanbattles;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,7 +15,6 @@ import com.example.scanbattles.db.AppDatabase;
 import com.example.scanbattles.models.Monster;
 import com.example.scanbattles.models.User;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -21,14 +22,10 @@ public class FightActivity extends AppCompatActivity {
 
     private ViewFlipper viewFlipper;
     private Monster enemyMonster;
-    private TextView enemyMonsterHP;
-    private TextView currentMonsterName;
-    private TextView currentMonsterHP;
-    private ImageView enemyMonsterImage;
-    private ImageView currentMonsterImage;
     private List<Monster> monsters;
     private  Monster currentMonster;
-
+    private TextView log;
+    private String logString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +37,10 @@ public class FightActivity extends AppCompatActivity {
         enemyMonster = AllMonsters.getMonsterById(monsterID, MainActivity.allMonsters);
         setupEnemy();
 
-        String enemyMonsterHPText = enemyMonster.currentHP + "/" + enemyMonster.maxHP;
-        enemyMonsterHP = findViewById(R.id.enemyMonsterHP);
-        enemyMonsterHP.setText(enemyMonsterHPText);
-
-        enemyMonsterImage = findViewById(R.id.enemyMonsterImage);
-        enemyMonsterImage.setImageResource(enemyMonster.image);
-
+        log = findViewById(R.id.log);
+        log.setMovementMethod(new ScrollingMovementMethod());
+        log.setText("");
+        logString = "";
     }
 
     private void setupEnemy() {
@@ -87,13 +81,20 @@ public class FightActivity extends AppCompatActivity {
     }
 
     public void updateMonsterViews(){
-        currentMonsterImage = findViewById(R.id.currentMonsterImage);
+        String enemyMonsterHPText = enemyMonster.currentHP + "/" + enemyMonster.maxHP;
+        TextView enemyMonsterHP = findViewById(R.id.enemyMonsterHP);
+        enemyMonsterHP.setText(enemyMonsterHPText);
+
+        ImageView enemyMonsterImage = findViewById(R.id.enemyMonsterImage);
+        enemyMonsterImage.setImageResource(enemyMonster.image);
+
+        ImageView currentMonsterImage = findViewById(R.id.currentMonsterImage);
         currentMonsterImage.setImageResource(currentMonster.image);
 
-        currentMonsterName = findViewById(R.id.currentMonsterName);
+        TextView currentMonsterName = findViewById(R.id.currentMonsterName);
         currentMonsterName.setText(currentMonster.name);
 
-        currentMonsterHP = findViewById(R.id.currentMonsterHP);
+        TextView currentMonsterHP = findViewById(R.id.currentMonsterHP);
         String currentMonsterHPText = currentMonster.currentHP + "/" + currentMonster.maxHP;
         currentMonsterHP.setText(currentMonsterHPText);
 
@@ -153,12 +154,13 @@ public class FightActivity extends AppCompatActivity {
 
     public void switchMonsterView(View v){
         //TODO check if there are any playable monsters remaining
+
+        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
         viewFlipper.showNext();
     }
 
     public void switchMonster(View v){
         int selectedMonster = Integer.parseInt(v.getTag().toString());
-        Toast.makeText(this, selectedMonster + "", Toast.LENGTH_SHORT).show();
         currentMonster = monsters.get(selectedMonster);
         updateMonsterViews();
         viewFlipper.showPrevious();
@@ -169,7 +171,53 @@ public class FightActivity extends AppCompatActivity {
     }
 
     private void startFight() {
+        if(enemyMonster.getSpeed() > currentMonster.getSpeed()){
+            enemyAttack();
+        }
+    }
 
+    public void updateLog(String text){
+        logString = text + "<br>" + (!logString.contains("<br>") ? "": (logString.substring(0,logString.indexOf("<br>"))
+                +"<font color=#bbbbbb>" + logString.substring(logString.indexOf("<br>")) + "</font>"));
+        log.setText(Html.fromHtml(logString));
+    }
+
+    public void userAttack(View v) {
+        int attack = currentMonster.getAttack();
+        double dodgeChance = enemyMonster.getDefense() / 20.0;
+        if (Math.random() > dodgeChance){
+            enemyMonster.currentHP = (attack >= enemyMonster.currentHP? 0 : enemyMonster.currentHP - attack);
+            updateLog(currentMonster.name + " deals " + attack + " damage to " + enemyMonster.name + "!");
+        }
+        else{
+            updateLog(currentMonster.name + " attacked " + enemyMonster.name + " and missed!");
+        }
+        updateMonsterViews();
+        enemyAttack();
+    }
+
+    private void enemyAttack() {
+        int attack = enemyMonster.getAttack();
+        double dodgeChance = currentMonster.getDefense() / 20.0;
+        if (Math.random() > dodgeChance){
+            damageCurrentMonster(attack);
+            updateLog(enemyMonster.name + " deals " + attack + " damage to " + currentMonster.name + "!");
+        }
+        else{
+            updateLog(enemyMonster.name + " attacked " + currentMonster.name + " and missed!");
+        }
+        updateMonsterViews();
+    }
+
+    private void damageCurrentMonster(int attack){
+        currentMonster.currentHP = (attack >= currentMonster.currentHP? 0 : currentMonster.currentHP - attack);
+        for(int i = 0; i < monsters.size(); i++){
+            if(monsters.get(i).id == currentMonster.id){
+                monsters.get(i).currentHP = currentMonster.currentHP;
+                break;
+            }
+        }
+        AppDatabase.getAppDatabase(this).monsterDao().update(currentMonster);
     }
 
     public void endFight(View v){
