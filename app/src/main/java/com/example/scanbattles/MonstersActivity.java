@@ -23,7 +23,7 @@ public class MonstersActivity extends AppCompatActivity implements MonsterAdapte
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //TODO add back button and case to handle no monsters
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monsters);
 
@@ -40,11 +40,6 @@ public class MonstersActivity extends AppCompatActivity implements MonsterAdapte
 
     }
 
-    public boolean onOptionsItemSelected(MenuItem item){
-        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivityForResult(myIntent, 0);
-        return true;
-    }
 
     public void setTeam(int monsterPosition, int team){
         Monster monster = myMonsters.get(monsterPosition);

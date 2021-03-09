@@ -38,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
+
     public void scanMenuOption(View view) {
         Intent intent = new Intent(this, ScanActivity.class);
         startActivity(intent);

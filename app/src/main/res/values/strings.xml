@@ -117,4 +117,11 @@
     <string name="todo">TODO</string>
     <string name="textview">TextView</string>
     <string name="switch_">Switch</string>
+    <string name="next">Next</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="scan_battles">Scan Battles</string>
+    <string name="intro">In <b>Scan Battles</b>, you scan barcodes or QR codes to unlock <b>Monsters</b>.</string>
+    <string name="intro2">You\'ll begin by picking a <b>Tribe</b> - if you scan a monster belonging to an enemy Tribe, you\'ll have to fight it to capture it! Make sure you put together <b>Teams</b>
+        to fight any enemies you may find.</string>
+    <string name="choose_your_tribe">Choose your Tribe</string>
 </resources>
