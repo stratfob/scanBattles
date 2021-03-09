@@ -95,6 +95,10 @@ public class FightActivity extends AppCompatActivity {
 
             monsters = getMonsterTeam(selectedTeam);
             currentMonster = monsters.get(0);
+            int i = 0;
+            while(currentMonster.currentHP==0 && i < 3){
+                currentMonster = monsters.get(++i);
+            }
             setupEnemy();
 
             updateMonsterViews();
