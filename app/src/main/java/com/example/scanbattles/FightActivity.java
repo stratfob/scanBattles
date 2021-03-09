@@ -230,8 +230,7 @@ public class FightActivity extends AppCompatActivity {
             captureMonsterDialogue();
         }
         else {
-            //TODO: adjust damage based on monster class
-            int attack = currentMonster.getAttack();
+            int attack = calculateAttack(currentMonster, enemyMonster);
             double dodgeChance = enemyMonster.getDefense() / 20.0;
             if (Math.random() > dodgeChance) {
                 enemyMonster.currentHP = (attack >= enemyMonster.currentHP ? 0 : enemyMonster.currentHP - attack);
@@ -245,6 +244,20 @@ public class FightActivity extends AppCompatActivity {
             } else {
                 enemyAttack();
             }
+        }
+    }
+
+    private int calculateAttack(Monster attackingMonster, Monster defendingMonster) {
+        int attack = attackingMonster.getAttack();
+        String classCombo = attackingMonster.classification + defendingMonster.classification;
+        if(classCombo.equals("PowerPower")||classCombo.equals("TechTech")||classCombo.equals("MagicMagic")){
+            return attack;
+        }
+        else if(classCombo.equals("MagicPower")||classCombo.equals("PowerTech")||classCombo.equals("TechMagic")){
+            return attack + 1;
+        }
+        else{
+            return attack - 1;
         }
     }
 
@@ -290,8 +303,7 @@ public class FightActivity extends AppCompatActivity {
     }
 
     private void enemyAttack() {
-        //TODO: adjust damage based on monster class
-        int attack = enemyMonster.getAttack();
+        int attack = calculateAttack(enemyMonster, currentMonster);
         double dodgeChance = currentMonster.getDefense() / 20.0;
         if (Math.random() > dodgeChance){
             damageCurrentMonster(attack);
