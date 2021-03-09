@@ -47,7 +47,6 @@ public class MonstersActivity extends AppCompatActivity implements MonsterAdapte
     }
 
     public void setTeam(int monsterPosition, int team){
-
         Monster monster = myMonsters.get(monsterPosition);
         int monsterId = monster.id;
         User user = AppDatabase.getAppDatabase(this).userDao().getAll().get(0);

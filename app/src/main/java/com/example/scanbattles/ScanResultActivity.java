@@ -31,31 +31,32 @@ public class ScanResultActivity extends AppCompatActivity {
         //monster returned by scan
         if(monster != null) {
 
+            ArrayList<Monster> newMonster = (ArrayList<Monster>) AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{monster.id});
+
+            //check to see if owned
+
+            //owned
+            if (newMonster.size() != 0) {
+                //heal monster
+                newMonster.get(0).currentHP = newMonster.get(0).maxHP;
+                AppDatabase.getAppDatabase(this).monsterDao().update(newMonster.get(0));
+                resultString = "Healed " + newMonster.get(0).name + "!";
+            }
+
             //Check if in User's tribe
-            if (!AppDatabase.getAppDatabase(this).userDao().getTribe().equals(monster.tribe)) {
+            else if (!AppDatabase.getAppDatabase(this).userDao().getTribe().equals(monster.tribe)) {
                 fightDialogue(monster);
                 resultString = "This monster's tribe is: " + monster.tribe + ", yours is: " + AppDatabase.getAppDatabase(this).userDao().getTribe();
             }
+
+            //not owned
             else {
-                ArrayList<Monster> newMonster = (ArrayList<Monster>) AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{monster.id});
-
-    //check to see if owned
-                //not owned
-                if (newMonster.size() == 0) {
-                    //add monster to user monsters
-                    monster.currentHP = monster.maxHP;
-                    AppDatabase.getAppDatabase(this).monsterDao().insertAll(monster);
-                    resultString = "Added " + monster.name + " to your monsters!";
-                }
-                //owned
-                else {
-                    //heal monster
-                    newMonster.get(0).currentHP = newMonster.get(0).maxHP;
-                    AppDatabase.getAppDatabase(this).monsterDao().update(newMonster.get(0));
-                    resultString = "Healed " + newMonster.get(0).name + "!";
-                }
-
+                //add monster to user monsters
+                monster.currentHP = monster.maxHP;
+                AppDatabase.getAppDatabase(this).monsterDao().insertAll(monster);
+                resultString = "Added " + monster.name + " to your monsters!";
             }
+
         }
 
         else {

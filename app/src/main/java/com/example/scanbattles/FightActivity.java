@@ -2,6 +2,10 @@ package com.example.scanbattles;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
@@ -44,34 +48,35 @@ public class FightActivity extends AppCompatActivity {
     }
 
     private void setupEnemy() {
-        //TODO make monster more difficult based on rarity
+        //TODO make monster more difficult based on rarity and current team
         enemyMonster.currentHP = enemyMonster.maxHP;
     }
 
-    private void getMonsterTeam(int team) {
+    private List<Monster> getMonsterTeam(int team) {
         User user = AppDatabase.getAppDatabase(this).userDao().getAll().get(0);
         switch (team){
             case 1:
-                monsters = AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{user.team1Monster1, user.team1Monster2, user.team1Monster3});
-                break;
+                return AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{user.team1Monster1, user.team1Monster2, user.team1Monster3});
             case 2:
-                monsters = AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{user.team2Monster1, user.team2Monster2, user.team2Monster3});
-                break;
-            case 3:
-                monsters = AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{user.team3Monster1, user.team3Monster2, user.team3Monster3});
-                break;
+                return AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{user.team2Monster1, user.team2Monster2, user.team2Monster3});
+            default:
+                return AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{user.team3Monster1, user.team3Monster2, user.team3Monster3});
         }
-
-        currentMonster = monsters.get(0);
     }
 
     public void teamSelected(View v){
-        if(AppDatabase.getAppDatabase(this).userDao().getAll().get(0).emptyTeam(Integer.parseInt(v.getTag().toString()))){
+        User user = AppDatabase.getAppDatabase(this).userDao().getAll().get(0);
+        int selectedTeam = Integer.parseInt(v.getTag().toString());
+        if(user.emptyTeam(selectedTeam)){
             Toast.makeText(getApplicationContext(), "Team " + v.getTag().toString() + " is empty!", Toast.LENGTH_SHORT).show();
         }
+        else if(teamIsFainted(selectedTeam)){
+            Toast.makeText(getApplicationContext(), "All monsters in Team " + v.getTag().toString() + " have fainted!", Toast.LENGTH_SHORT).show();
+        }
         else {
-            int selectedTeam = Integer.parseInt(v.getTag().toString());
-            getMonsterTeam(selectedTeam);
+
+            monsters = getMonsterTeam(selectedTeam);
+            currentMonster = monsters.get(0);
 
             updateMonsterViews();
             viewFlipper.showNext();
@@ -100,6 +105,11 @@ public class FightActivity extends AppCompatActivity {
 
         ImageView monster1Image = findViewById(R.id.monster1Image);
         monster1Image.setImageResource(monsters.get(0).image);
+        if(monsters.get(0).currentHP==0){
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.setSaturation(0);
+            monster1Image.setColorFilter(new ColorMatrixColorFilter(matrix));
+        }
         TextView monster1Name = findViewById(R.id.monster1Name);
         monster1Name.setText(monsters.get(0).name);
         TextView monster1HP = findViewById(R.id.monster1HP);
@@ -116,6 +126,11 @@ public class FightActivity extends AppCompatActivity {
             findViewById(R.id.monster2Card).setVisibility(View.VISIBLE);
             ImageView monster2Image = findViewById(R.id.monster2Image);
             monster2Image.setImageResource(monsters.get(1).image);
+            if(monsters.get(1).currentHP==0){
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+                monster2Image.setColorFilter(new ColorMatrixColorFilter(matrix));
+            }
             TextView monster2Name = findViewById(R.id.monster2Name);
             monster2Name.setText(monsters.get(1).name);
             TextView monster2HP = findViewById(R.id.monster2HP);
@@ -135,6 +150,11 @@ public class FightActivity extends AppCompatActivity {
             findViewById(R.id.monster3Card).setVisibility(View.VISIBLE);
             ImageView monster3Image = findViewById(R.id.monster3Image);
             monster3Image.setImageResource(monsters.get(2).image);
+            if(monsters.get(2).currentHP==0){
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+                monster3Image.setColorFilter(new ColorMatrixColorFilter(matrix));
+            }
             TextView monster3Name = findViewById(R.id.monster3Name);
             monster3Name.setText(monsters.get(2).name);
             TextView monster3HP = findViewById(R.id.monster3HP);
@@ -153,17 +173,19 @@ public class FightActivity extends AppCompatActivity {
     }
 
     public void switchMonsterView(View v){
-        //TODO check if there are any playable monsters remaining
-
-        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
         viewFlipper.showNext();
     }
 
     public void switchMonster(View v){
         int selectedMonster = Integer.parseInt(v.getTag().toString());
-        currentMonster = monsters.get(selectedMonster);
-        updateMonsterViews();
-        viewFlipper.showPrevious();
+        if(monsters.get(selectedMonster).currentHP!=0) {
+            currentMonster = monsters.get(selectedMonster);
+            updateMonsterViews();
+            viewFlipper.showPrevious();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "This monster has fainted!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void cancelSwitch(View v){
@@ -183,17 +205,59 @@ public class FightActivity extends AppCompatActivity {
     }
 
     public void userAttack(View v) {
-        int attack = currentMonster.getAttack();
-        double dodgeChance = enemyMonster.getDefense() / 20.0;
-        if (Math.random() > dodgeChance){
-            enemyMonster.currentHP = (attack >= enemyMonster.currentHP? 0 : enemyMonster.currentHP - attack);
-            updateLog(currentMonster.name + " deals " + attack + " damage to " + enemyMonster.name + "!");
+        if(currentMonster.currentHP==0){
+            Toast.makeText(getApplicationContext(), "Your monster has fainted and cannot attack!", Toast.LENGTH_SHORT).show();
         }
-        else{
-            updateLog(currentMonster.name + " attacked " + enemyMonster.name + " and missed!");
+        else if(enemyMonster.currentHP==0){
+            captureMonsterDialogue();
         }
-        updateMonsterViews();
-        enemyAttack();
+        else {
+            int attack = currentMonster.getAttack();
+            double dodgeChance = enemyMonster.getDefense() / 20.0;
+            if (Math.random() > dodgeChance) {
+                enemyMonster.currentHP = (attack >= enemyMonster.currentHP ? 0 : enemyMonster.currentHP - attack);
+                updateLog(currentMonster.name + " deals " + attack + " damage to " + enemyMonster.name + "!");
+            } else {
+                updateLog(currentMonster.name + " attacked " + enemyMonster.name + " and missed!");
+            }
+            updateMonsterViews();
+            if (enemyMonster.currentHP == 0) {
+                captureMonsterDialogue();
+            } else {
+                enemyAttack();
+            }
+        }
+    }
+
+    private void captureMonsterDialogue() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(FightActivity.this);
+        builder.setTitle("You have won the Battle!");
+        builder.setMessage("Do you want to capture " + enemyMonster.name + "?");
+        builder.setPositiveButton("Yeah!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                captureMonster();
+                victory();
+            }
+        });
+        builder.setNegativeButton("Nah", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                victory();
+            }
+        });
+        builder.show();
+    }
+
+    private void victory() {
+        //TODO: level up victors
+        FightActivity.this.finish();
+    }
+
+    private void captureMonster() {
+        AppDatabase.getAppDatabase(this).monsterDao().insertAll(enemyMonster);
     }
 
     private void enemyAttack() {
@@ -207,6 +271,40 @@ public class FightActivity extends AppCompatActivity {
             updateLog(enemyMonster.name + " attacked " + currentMonster.name + " and missed!");
         }
         updateMonsterViews();
+        if(currentMonster.currentHP==0){
+            updateLog(currentMonster.name + " fainted!");
+            if(!healthyMonstersRemaining()){ //show dialogue if no more monsters
+                showFailureDialogue();
+            }
+        }
+    }
+
+    private boolean teamIsFainted(int team){
+        List<Monster> monsterList = getMonsterTeam(team);
+        for(int i = 0; i<monsterList.size(); i++){
+            if(monsterList.get(i).currentHP!=0) return false;
+        }
+        return true;
+    }
+
+    private boolean healthyMonstersRemaining(){
+        for(int i = 0; i< monsters.size(); i++){
+            if(monsters.get(i).currentHP>0) return true;
+        }
+        return false;
+    }
+
+    private void showFailureDialogue() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(FightActivity.this);
+        builder.setTitle("All your monsters have fainted!");
+        builder.setPositiveButton("Darn!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                FightActivity.this.finish();
+            }
+        });
+        builder.show();
     }
 
     private void damageCurrentMonster(int attack){
