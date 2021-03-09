@@ -27,7 +27,7 @@ public class FightActivity extends AppCompatActivity {
     private ViewFlipper viewFlipper;
     private Monster enemyMonster;
     private List<Monster> monsters;
-    private  Monster currentMonster;
+    private Monster currentMonster;
     private TextView log;
     private String logString;
 
@@ -39,7 +39,6 @@ public class FightActivity extends AppCompatActivity {
 
         int monsterID = getIntent().getExtras().getInt("monsterID");
         enemyMonster = AllMonsters.getMonsterById(monsterID, MainActivity.allMonsters);
-        setupEnemy();
 
         log = findViewById(R.id.log);
         log.setMovementMethod(new ScrollingMovementMethod());
@@ -48,8 +47,27 @@ public class FightActivity extends AppCompatActivity {
     }
 
     private void setupEnemy() {
-        //TODO make monster more difficult based on rarity and current team
+        //makes monster more difficult based on rarity and current team
+        int monstersTotalHP = 0;
+        for(int i = 0; i < monsters.size(); i++){
+            monstersTotalHP += monsters.get(i).maxHP;
+        }
+        monstersTotalHP /= monsters.size();
+        monstersTotalHP *= 3;
+        enemyMonster.maxHP = monstersTotalHP;
         enemyMonster.currentHP = enemyMonster.maxHP;
+
+        switch (enemyMonster.rarity){
+            case 1:
+                enemyMonster.level = 1;
+                break;
+            case 2:
+                enemyMonster.level = 2;
+                break;
+            case 3:
+                enemyMonster.level = 3;
+                break;
+        }
     }
 
     private List<Monster> getMonsterTeam(int team) {
@@ -77,11 +95,14 @@ public class FightActivity extends AppCompatActivity {
 
             monsters = getMonsterTeam(selectedTeam);
             currentMonster = monsters.get(0);
+            setupEnemy();
 
             updateMonsterViews();
             viewFlipper.showNext();
 
-            startFight();
+            if(enemyMonster.getSpeed() > currentMonster.getSpeed()){
+                enemyAttack();
+            }
         }
     }
 
@@ -180,6 +201,9 @@ public class FightActivity extends AppCompatActivity {
         int selectedMonster = Integer.parseInt(v.getTag().toString());
         if(monsters.get(selectedMonster).currentHP!=0) {
             currentMonster = monsters.get(selectedMonster);
+            if(enemyMonster.getSpeed() > currentMonster.getSpeed()){
+                enemyAttack();
+            }
             updateMonsterViews();
             viewFlipper.showPrevious();
         }
@@ -190,12 +214,6 @@ public class FightActivity extends AppCompatActivity {
 
     public void cancelSwitch(View v){
         viewFlipper.showPrevious();
-    }
-
-    private void startFight() {
-        if(enemyMonster.getSpeed() > currentMonster.getSpeed()){
-            enemyAttack();
-        }
     }
 
     public void updateLog(String text){
@@ -212,6 +230,7 @@ public class FightActivity extends AppCompatActivity {
             captureMonsterDialogue();
         }
         else {
+            //TODO: adjust damage based on monster class
             int attack = currentMonster.getAttack();
             double dodgeChance = enemyMonster.getDefense() / 20.0;
             if (Math.random() > dodgeChance) {
@@ -252,15 +271,26 @@ public class FightActivity extends AppCompatActivity {
     }
 
     private void victory() {
-        //TODO: level up victors
+        for(int i = 0; i < monsters.size(); i++){
+            monsters.get(i).maxHP = monsters.get(i).maxHP + 2;
+            if(monsters.get(i).maxHP > 99){
+                monsters.get(i).maxHP = 99;
+            }
+            if(monsters.get(i).maxHP > 30) monsters.get(i).level = 2;
+            if(monsters.get(i).maxHP > 70) monsters.get(i).level = 3;
+            AppDatabase.getAppDatabase(this).monsterDao().update(monsters.get(i));
+        }
+
         FightActivity.this.finish();
     }
 
     private void captureMonster() {
-        AppDatabase.getAppDatabase(this).monsterDao().insertAll(enemyMonster);
+        Monster normalisedEnemyMonster = AllMonsters.getMonsterById(enemyMonster.id, MainActivity.allMonsters);
+        AppDatabase.getAppDatabase(this).monsterDao().insertAll(normalisedEnemyMonster);
     }
 
     private void enemyAttack() {
+        //TODO: adjust damage based on monster class
         int attack = enemyMonster.getAttack();
         double dodgeChance = currentMonster.getDefense() / 20.0;
         if (Math.random() > dodgeChance){
