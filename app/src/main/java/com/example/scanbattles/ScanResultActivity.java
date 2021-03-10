@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.scanbattles.db.AppDatabase;
 import com.example.scanbattles.models.Monster;
@@ -89,9 +90,16 @@ public class ScanResultActivity extends AppCompatActivity {
         builder.setPositiveButton("Let's go!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(ScanResultActivity.this, FightActivity.class);
-                intent.putExtra("monsterID", monster.id);
-                startActivity(intent);
+                if(AppDatabase.getAppDatabase(ScanResultActivity.this).userDao().getAll().get(0).emptyTeam(1)
+                    && AppDatabase.getAppDatabase(ScanResultActivity.this).userDao().getAll().get(0).emptyTeam(2)
+                    && AppDatabase.getAppDatabase(ScanResultActivity.this).userDao().getAll().get(0).emptyTeam(3)){
+                    Toast.makeText(ScanResultActivity.this,"You must make a team of monsters first!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(ScanResultActivity.this, FightActivity.class);
+                    intent.putExtra("monsterID", monster.id);
+                    startActivity(intent);
+                }
                 dialog.dismiss();
             }
         });
