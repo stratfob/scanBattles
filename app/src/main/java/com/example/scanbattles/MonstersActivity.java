@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.scanbattles.db.AppDatabase;
@@ -24,7 +25,7 @@ public class MonstersActivity extends AppCompatActivity implements MonsterAdapte
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO add back button and case to handle no monsters
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monsters);
 
@@ -35,6 +36,11 @@ public class MonstersActivity extends AppCompatActivity implements MonsterAdapte
 
 
         myMonsters = (ArrayList<Monster>) AppDatabase.getAppDatabase(this).monsterDao().getAll();
+
+        TextView monsterCountTV = findViewById(R.id.monsterCount);
+        String monstersCollectedText = "Monsters Collected: " + myMonsters.size() + "/" +
+                MainActivity.allMonsters.size();
+        monsterCountTV.setText(monstersCollectedText);
 
         mAdapter = new MonsterAdapter(myMonsters, this);
         recyclerView.setAdapter(mAdapter);
