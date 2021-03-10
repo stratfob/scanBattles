@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.scanbattles.db.AppDatabase;
@@ -28,9 +29,10 @@ public class ScanResultActivity extends AppCompatActivity {
         Monster monster = scan.scan();
 
         String resultString;
+        int imageResID;
         //monster returned by scan
         if(monster != null) {
-
+            imageResID = monster.image;
             ArrayList<Monster> newMonster = (ArrayList<Monster>) AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{monster.id});
 
             //check to see if owned
@@ -46,7 +48,7 @@ public class ScanResultActivity extends AppCompatActivity {
             //Check if in User's tribe
             else if (!AppDatabase.getAppDatabase(this).userDao().getTribe().equals(monster.tribe)) {
                 fightDialogue(monster);
-                resultString = "This monster's tribe is: " + monster.tribe + ", yours is: " + AppDatabase.getAppDatabase(this).userDao().getTribe();
+                resultString = monster.tribe + " Monster found!";
             }
 
             //not owned
@@ -60,11 +62,14 @@ public class ScanResultActivity extends AppCompatActivity {
         }
 
         else {
+            imageResID = R.drawable.sad_face;
             resultString = "No monster found!";
         }
 
         TextView textView = findViewById(R.id.textView);
         textView.setText(resultString);
+        ImageView imageView = findViewById(R.id.scanResultMonsterImage);
+        imageView.setImageResource(imageResID);
 
     }
 

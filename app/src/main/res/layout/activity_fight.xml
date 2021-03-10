@@ -125,7 +125,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="28dp"
-                        android:layout_marginLeft="28dp"
                         android:contentDescription="@string/todo"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -137,7 +136,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|top"
                         android:layout_marginEnd="24dp"
-                        android:layout_marginRight="24dp"
                         android:onClick="userAttack"
                         android:text="@string/Attack"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -149,7 +147,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|end"
                         android:layout_marginEnd="24dp"
-                        android:layout_marginRight="24dp"
                         android:onClick="switchMonsterView"
                         android:text="@string/switch_"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -218,10 +215,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="13dp"
-                        android:layout_marginLeft="13dp"
                         android:layout_marginTop="13dp"
                         android:layout_toEndOf="@+id/monster1Image"
-                        android:layout_toRightOf="@+id/monster1Image"
                         android:text="@string/button_monsters"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -231,10 +226,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/monster1Name"
                         android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
                         android:layout_marginTop="11dp"
                         android:layout_toEndOf="@+id/monster1Image"
-                        android:layout_toRightOf="@+id/monster1Image"
                         android:text="@string/HP" />
 
                     <TextView
@@ -243,10 +236,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/monster1HP"
                         android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
                         android:layout_marginTop="15dp"
                         android:layout_toEndOf="@+id/monster1Image"
-                        android:layout_toRightOf="@+id/monster1Image"
                         android:text="@string/Attack" />
 
                     <TextView
@@ -255,10 +246,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/monster1Attack"
                         android:layout_marginStart="28dp"
-                        android:layout_marginLeft="28dp"
                         android:layout_marginTop="0dp"
                         android:layout_toEndOf="@+id/monster1Attack"
-                        android:layout_toRightOf="@+id/monster1Attack"
                         android:text="@string/Defense" />
 
                     <TextView
@@ -267,10 +256,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/monster1Defense"
                         android:layout_marginStart="27dp"
-                        android:layout_marginLeft="27dp"
                         android:layout_marginTop="0dp"
                         android:layout_toEndOf="@+id/monster1Defense"
-                        android:layout_toRightOf="@+id/monster1Defense"
                         android:text="@string/Speed" />
 
                 </RelativeLayout>
@@ -308,10 +295,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="13dp"
-                        android:layout_marginLeft="13dp"
                         android:layout_marginTop="13dp"
                         android:layout_toEndOf="@+id/monster2Image"
-                        android:layout_toRightOf="@+id/monster2Image"
                         android:text="@string/button_monsters"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -321,10 +306,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/monster2Name"
                         android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
                         android:layout_marginTop="11dp"
                         android:layout_toEndOf="@+id/monster2Image"
-                        android:layout_toRightOf="@+id/monster2Image"
                         android:text="@string/HP" />
 
                     <TextView
@@ -333,10 +316,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/monster2HP"
                         android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
                         android:layout_marginTop="15dp"
                         android:layout_toEndOf="@+id/monster2Image"
-                        android:layout_toRightOf="@+id/monster2Image"
                         android:text="@string/Attack" />
 
                     <TextView
@@ -345,10 +326,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/monster2Attack"
                         android:layout_marginStart="28dp"
-                        android:layout_marginLeft="28dp"
                         android:layout_marginTop="0dp"
                         android:layout_toEndOf="@+id/monster2Attack"
-                        android:layout_toRightOf="@+id/monster2Attack"
                         android:text="@string/Defense" />
 
                     <TextView
@@ -357,10 +336,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/monster2Defense"
                         android:layout_marginStart="27dp"
-                        android:layout_marginLeft="27dp"
                         android:layout_marginTop="0dp"
                         android:layout_toEndOf="@+id/monster2Defense"
-                        android:layout_toRightOf="@+id/monster2Defense"
                         android:text="@string/Speed" />
 
                 </RelativeLayout>
@@ -399,10 +376,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="13dp"
-                        android:layout_marginLeft="13dp"
                         android:layout_marginTop="13dp"
                         android:layout_toEndOf="@+id/monster3Image"
-                        android:layout_toRightOf="@+id/monster3Image"
                         android:text="@string/button_monsters"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -412,10 +387,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/monster3Name"
                         android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
                         android:layout_marginTop="11dp"
                         android:layout_toEndOf="@+id/monster3Image"
-                        android:layout_toRightOf="@+id/monster3Image"
                         android:text="@string/HP" />
 
                     <TextView
@@ -424,10 +397,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/monster3HP"
                         android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
                         android:layout_marginTop="15dp"
                         android:layout_toEndOf="@+id/monster3Image"
-                        android:layout_toRightOf="@+id/monster3Image"
                         android:text="@string/Attack" />
 
                     <TextView
@@ -436,10 +407,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/monster3Attack"
                         android:layout_marginStart="28dp"
-                        android:layout_marginLeft="28dp"
                         android:layout_marginTop="0dp"
                         android:layout_toEndOf="@+id/monster3Attack"
-                        android:layout_toRightOf="@+id/monster3Attack"
                         android:text="@string/Defense" />
 
                     <TextView
@@ -448,10 +417,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/monster3Defense"
                         android:layout_marginStart="27dp"
-                        android:layout_marginLeft="27dp"
                         android:layout_marginTop="0dp"
                         android:layout_toEndOf="@+id/monster3Defense"
-                        android:layout_toRightOf="@+id/monster3Defense"
                         android:text="@string/Speed" />
 
                 </RelativeLayout>
@@ -463,7 +430,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
                 android:onClick="cancelSwitch"
                 android:text="@string/Back"
@@ -477,7 +443,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"

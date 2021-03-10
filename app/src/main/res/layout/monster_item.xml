@@ -26,12 +26,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="13dp"
-            android:layout_marginLeft="13dp"
             android:layout_marginTop="13dp"
             android:layout_toEndOf="@+id/monsterImage"
-            android:layout_toRightOf="@+id/monsterImage"
             android:text="@string/button_monsters"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            tools:ignore="RelativeOverlap" />
 
         <TextView
             android:id="@+id/monsterHP"
@@ -39,10 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/monsterName"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="11dp"
             android:layout_toEndOf="@+id/monsterImage"
-            android:layout_toRightOf="@+id/monsterImage"
             android:text="@string/HP" />
 
         <TextView
@@ -51,10 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/monsterHP"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="15dp"
             android:layout_toEndOf="@+id/monsterImage"
-            android:layout_toRightOf="@+id/monsterImage"
             android:text="@string/Attack" />
 
         <TextView
@@ -63,10 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/monsterAttack"
             android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
             android:layout_marginTop="0dp"
             android:layout_toEndOf="@+id/monsterAttack"
-            android:layout_toRightOf="@+id/monsterAttack"
             android:text="@string/Defense" />
 
         <TextView
@@ -75,10 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/monsterDefense"
             android:layout_marginStart="27dp"
-            android:layout_marginLeft="27dp"
             android:layout_marginTop="0dp"
             android:layout_toEndOf="@+id/monsterDefense"
-            android:layout_toRightOf="@+id/monsterDefense"
             android:text="@string/Speed" />
 
         <TextView
@@ -87,10 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/monsterName"
             android:layout_marginStart="58dp"
-            android:layout_marginLeft="58dp"
             android:layout_marginTop="12dp"
             android:layout_toEndOf="@+id/monsterHP"
-            android:layout_toRightOf="@+id/monsterHP"
             android:text="@string/Rarity" />
 
         <ImageView
@@ -99,10 +88,8 @@
             android:layout_height="57dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
             android:contentDescription="@string/Team" />
 
     </RelativeLayout>
