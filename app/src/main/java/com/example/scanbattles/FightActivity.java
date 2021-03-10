@@ -225,7 +225,7 @@ public class FightActivity extends AppCompatActivity {
     }
 
     public void updateLog(String text){
-        logString = text + "<br>" + (!logString.contains("<br>") ? "": (logString.substring(0,logString.indexOf("<br>"))
+        logString = "<font color=#ffffff>" + text + "</font><br>" + (!logString.contains("<br>") ? "": (logString.substring(0,logString.indexOf("<br>"))
                 +"<font color=#bbbbbb>" + logString.substring(logString.indexOf("<br>")) + "</font>"));
         log.setText(Html.fromHtml(logString, Html.FROM_HTML_MODE_LEGACY));
     }
