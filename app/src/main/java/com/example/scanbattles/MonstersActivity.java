@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.scanbattles.db.AppDatabase;
@@ -65,6 +66,11 @@ public class MonstersActivity extends AppCompatActivity implements MonsterAdapte
 //        toast.show();
         String monsterName = myMonsters.get(position).name;
         showOptionsDialogue(position, monsterName);
+    }
+
+    public void backButton(View v){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     private void showOptionsDialogue(final int monsterPosition, String monsterName) {
