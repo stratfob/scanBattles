@@ -1,11 +1,12 @@
 package com.example.scanbattles.models;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Monster {
+public class Monster implements Cloneable{
     @PrimaryKey
     public int id;
     public int image;
@@ -59,5 +60,8 @@ public class Monster {
                 return speedLvl3;
         }
     }
-
+    @NonNull
+    public Object clone() throws CloneNotSupportedException{
+        return super.clone();
+    }
 }

@@ -38,7 +38,11 @@ public class FightActivity extends AppCompatActivity {
         viewFlipper = findViewById(R.id.view_flipper);
 
         int monsterID = getIntent().getExtras().getInt("monsterID");
-        enemyMonster = AllMonsters.getMonsterById(monsterID, MainActivity.allMonsters);
+        try {
+            enemyMonster = (Monster) AllMonsters.getMonsterById(monsterID, MainActivity.allMonsters).clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
 
         log = findViewById(R.id.log);
         log.setMovementMethod(new ScrollingMovementMethod());
@@ -223,7 +227,7 @@ public class FightActivity extends AppCompatActivity {
     public void updateLog(String text){
         logString = text + "<br>" + (!logString.contains("<br>") ? "": (logString.substring(0,logString.indexOf("<br>"))
                 +"<font color=#bbbbbb>" + logString.substring(logString.indexOf("<br>")) + "</font>"));
-        log.setText(Html.fromHtml(logString));
+        log.setText(Html.fromHtml(logString, Html.FROM_HTML_MODE_LEGACY));
     }
 
     public void userAttack(View v) {
