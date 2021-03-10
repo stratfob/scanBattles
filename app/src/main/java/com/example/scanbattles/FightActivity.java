@@ -60,7 +60,12 @@ public class FightActivity extends AppCompatActivity {
         monstersTotalHP /= monsters.size();
         monstersTotalHP *= 3;
 
-        //monstersTotalHP = 10;//debug
+        if((enemyMonster.rarity == 3 && monstersTotalHP > 30) || (enemyMonster.rarity == 2 && monstersTotalHP < 30)){
+            monstersTotalHP = 30;
+        }
+        if((enemyMonster.rarity == 2 && monstersTotalHP > 70) || (enemyMonster.rarity == 1 && monstersTotalHP < 70)){
+            monstersTotalHP = 70;
+        }
 
         enemyMonster.maxHP = monstersTotalHP;
         enemyMonster.currentHP = enemyMonster.maxHP;

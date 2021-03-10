@@ -84,7 +84,7 @@ public class MonsterAdapter extends RecyclerView.Adapter<MonsterAdapter.MyViewHo
             case 2:
                 holder.monsterAttack.setText(String.format(Locale.getDefault(),"Attack: %d", currentMonster.attackLvl2));
                 holder.monsterDefense.setText(String.format(Locale.getDefault(),"Defense: %d", currentMonster.defenseLvl2));
-                holder.monsterSpeed.setText(String.format(Locale.getDefault(),"%d", currentMonster.speedLvl2));
+                holder.monsterSpeed.setText(String.format(Locale.getDefault(),"Speed: %d", currentMonster.speedLvl2));
                 break;
             case 3:
                 holder.monsterAttack.setText(String.format(Locale.getDefault(),"Attack: %d", currentMonster.attackLvl3));
