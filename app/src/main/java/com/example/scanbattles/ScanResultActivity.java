@@ -16,6 +16,7 @@ import com.example.scanbattles.models.Monster;
 import java.util.ArrayList;
 
 public class ScanResultActivity extends AppCompatActivity {
+    boolean alreadyOwned;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +35,18 @@ public class ScanResultActivity extends AppCompatActivity {
         if(monster != null) {
             imageResID = monster.image;
             ArrayList<Monster> newMonster = (ArrayList<Monster>) AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{monster.id});
-
+            alreadyOwned = newMonster.size() != 0;
             //check to see if owned
 
             //owned
-            if (newMonster.size() != 0) {
+            if (alreadyOwned) {
                 //heal monster
                 newMonster.get(0).currentHP = newMonster.get(0).maxHP;
                 AppDatabase.getAppDatabase(this).monsterDao().update(newMonster.get(0));
                 resultString = "Healed " + newMonster.get(0).name + "!";
+                if (!AppDatabase.getAppDatabase(this).userDao().getTribe().equals(monster.tribe)) {
+                    fightDialogue(monster);
+                }
             }
 
             //Check if in User's tribe
@@ -75,7 +79,13 @@ public class ScanResultActivity extends AppCompatActivity {
 
     private void fightDialogue(final Monster monster) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ScanResultActivity.this);
-        builder.setTitle("Fight " + monster.tribe + " monster?");
+        if (alreadyOwned) {
+            builder.setTitle("You already own " + monster.name + ". Fight again?");
+        }
+        else{
+            builder.setTitle("Fight " + monster.tribe + " monster?");
+        }
+
         builder.setPositiveButton("Let's go!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

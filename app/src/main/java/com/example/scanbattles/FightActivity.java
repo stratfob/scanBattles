@@ -19,6 +19,7 @@ import com.example.scanbattles.db.AppDatabase;
 import com.example.scanbattles.models.Monster;
 import com.example.scanbattles.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -58,6 +59,9 @@ public class FightActivity extends AppCompatActivity {
         }
         monstersTotalHP /= monsters.size();
         monstersTotalHP *= 3;
+
+        //monstersTotalHP = 10;//debug
+
         enemyMonster.maxHP = monstersTotalHP;
         enemyMonster.currentHP = enemyMonster.maxHP;
 
@@ -272,22 +276,36 @@ public class FightActivity extends AppCompatActivity {
     private void captureMonsterDialogue() {
         AlertDialog.Builder builder = new AlertDialog.Builder(FightActivity.this);
         builder.setTitle("You have won the Battle!");
-        builder.setMessage("Do you want to capture " + enemyMonster.name + "?");
-        builder.setPositiveButton("Yeah!", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                captureMonster();
-                victory();
-            }
-        });
-        builder.setNegativeButton("Nah", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                victory();
-            }
-        });
+        boolean alreadyOwned = AppDatabase.getAppDatabase(this).monsterDao().loadAllByIds(new int[]{enemyMonster.id}).size() != 0;
+        if (!alreadyOwned) {
+            builder.setMessage("Do you want to capture " + enemyMonster.name + "?");
+            builder.setPositiveButton("Yeah!", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    captureMonster();
+                    victory();
+                }
+            });
+            builder.setNegativeButton("Nah", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    victory();
+                }
+            });
+        }
+        else{
+            builder.setPositiveButton("Nice!", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    victory();
+                }
+            });
+        }
+
+
         builder.show();
     }
 
