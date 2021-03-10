@@ -64,18 +64,7 @@ public class FightActivity extends AppCompatActivity {
 
         enemyMonster.maxHP = monstersTotalHP;
         enemyMonster.currentHP = enemyMonster.maxHP;
-
-        switch (enemyMonster.rarity){
-            case 1:
-                enemyMonster.level = 1;
-                break;
-            case 2:
-                enemyMonster.level = 2;
-                break;
-            case 3:
-                enemyMonster.level = 3;
-                break;
-        }
+        enemyMonster.level = (4-enemyMonster.rarity);
     }
 
     private List<Monster> getMonsterTeam(int team) {
